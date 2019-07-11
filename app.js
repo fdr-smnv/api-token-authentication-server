@@ -14,6 +14,8 @@ app.use(express.json())
 
 // Routes
 
+app.use('/users', require('./routes/users'))
+
 // Start the server 
 
 app.listen(PORT, () => console.log(`Server listening at ${PORT}`))
