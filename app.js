@@ -9,7 +9,7 @@ const { PORT = 3000 } = process.env
 
 // Middlewares
 
-app.use(morgan(dev))
+app.use(morgan('dev'))
 app.use(express.json())
 
 // Routes
