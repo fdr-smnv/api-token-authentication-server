@@ -11,7 +11,6 @@ module.exports = {
 
             if (!req.value) { req.value = {} }
             req.value['body'] = result.value
-
             next()
         }
     },
@@ -19,7 +18,7 @@ module.exports = {
     schemas: {
         authSchema: Joi.object().keys({
             email: Joi.string().email().required(),
-            passowrd: Joi.string().required()
+            password: Joi.string().required()
         })
     }
 }
