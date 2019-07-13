@@ -1,14 +1,12 @@
 const express = require('express')
 const morgan = require('morgan')
-const bodyParser = require('body-parser')
-const dotenv = require('dotenv').config()
 const mongoose = require('mongoose')
+
+const { PORT } = require('./helpers/envVariables')
 
 mongoose.connect('mongodb://localhost/APIAuthentication', { useNewUrlParser: true })
 
 const app = express()
-
-const { PORT = 3000 } = process.env
 
 // Middlewares
 
