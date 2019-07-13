@@ -1,5 +1,7 @@
 const JWT = require('jsonwebtoken')
+
 const User = require('../models/user')
+const { JWT_SECRET, JWT_ISSUER } = require('../helpers/envVariables')
 
 module.exports = {
     signUp: async (req, res, next) => {
@@ -21,11 +23,11 @@ module.exports = {
             // Respond with token
 
             const token = JWT.sign({
-                iss: 'Issuer',
+                iss: JWT_ISSUER,
                 sub: newUser.id,
                 iat: new Date().getTime(), // current time
                 exp: new Date().setDate(new Date().getDate() + 1) // current time + 1 day ahead
-            }, 'secret')
+            }, JWT_SECRET)
 
             res.status(200).json({ token })
 
