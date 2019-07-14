@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/fdr-smnv/api-token-authentication-server#readme",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "dotenv": "^8.0.0",
     "express": "^4.17.1",
     "joi": "^14.3.1",
