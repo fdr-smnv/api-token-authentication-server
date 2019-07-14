@@ -45,8 +45,8 @@ module.exports = {
   signIn: async (req, res, next) => {
     try {
       // Generate token
-      console.log('UsersController.signIn called!')
-      next()
+      const token = signUser(req.user)
+      res.status(200).json({ token })
     } catch (error) {
       next(error)
     }
@@ -54,8 +54,7 @@ module.exports = {
 
   secret: async (req, res, next) => {
     try {
-      console.log('UsersController.secret called!')
-      next()
+      res.send('Authorized')
     } catch (error) {
       next(error)
     }
