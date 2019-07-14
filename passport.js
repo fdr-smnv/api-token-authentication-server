@@ -1,8 +1,13 @@
 const passport = require('passport')
-const { JwtStrategy, ExtractJwt } = require('passport-jwt')
+const JwtStrategy = require('passport-jwt').Strategy
+const { ExtractJwt } = require('passport-jwt')
+const LocalStrategy = require('passport-local').Strategy
 
-const { User } = require('./models/user')
+const User = require('./models/user')
 const { JWT_SECRET } = require('./helpers/envVariables')
+
+
+// JWT STRATEGY
 
 passport.use(new JwtStrategy({
   jwtFromRequest: ExtractJwt.fromHeader('authorization'),
@@ -23,8 +28,29 @@ passport.use(new JwtStrategy({
 
     done(null, user)
 
-  } catch (errIor) {
+  } catch (error) {
     done(error, false)
   }
 }))
 
+// LOCAL STRATEGY
+
+passport.use(new LocalStrategy({
+  usernameField: 'email'
+}, async (email, password, done) => {
+  try {
+    const user = await User.findOne({ email })
+
+    if (!user) {
+      return done(null, false)
+    }
+
+    if (password !== user.password) {
+      return done(null, false)
+    } else {
+      return done(null, user)
+    }
+  } catch (error) {
+
+  }
+}))
