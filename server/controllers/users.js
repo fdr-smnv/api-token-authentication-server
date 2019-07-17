@@ -18,23 +18,19 @@ module.exports = {
       const { email, password } = req.value.body
 
       // Check if there is a user with the same email
-
       const foundUser = await User.findOne({ email })
       if (foundUser) {
         return res.status(403).json({ error: 'Email is already in use' })
       }
 
       // Create a new user
-
       const newUser = new User({ email, password })
       await newUser.save()
 
       // Generate token
-
       const token = signUser(newUser)
 
       // Respond with token
-
       res.status(200).json({ token })
 
     } catch (error) {
