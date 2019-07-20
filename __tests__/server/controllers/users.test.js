@@ -1,5 +1,5 @@
 const chai = require('chai')
-const { assert, expect } = require('chai')
+const { expect } = chai
 const sinon = require('sinon')
 const sinonChai = require('sinon-chai')
 const faker = require('faker')
