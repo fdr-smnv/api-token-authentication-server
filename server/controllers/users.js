@@ -3,7 +3,7 @@ const JWT = require('jsonwebtoken')
 const User = require('../models/user')
 const { JWT_SECRET, JWT_ISSUER } = require('../helpers/envVariables')
 
-const signUser = user => {
+const signToken = user => {
   return JWT.sign({
     iss: JWT_ISSUER,
     sub: user.id,
@@ -18,23 +18,19 @@ module.exports = {
       const { email, password } = req.value.body
 
       // Check if there is a user with the same email
-
       const foundUser = await User.findOne({ email })
       if (foundUser) {
         return res.status(403).json({ error: 'Email is already in use' })
       }
 
       // Create a new user
-
       const newUser = new User({ email, password })
       await newUser.save()
 
       // Generate token
-
-      const token = signUser(newUser)
+      const token = signToken(newUser)
 
       // Respond with token
-
       res.status(200).json({ token })
 
     } catch (error) {
@@ -45,7 +41,7 @@ module.exports = {
   signIn: async (req, res, next) => {
     try {
       // Generate token
-      const token = signUser(req.user)
+      const token = signToken(req.user)
       res.status(200).json({ token })
     } catch (error) {
       next(error)
@@ -54,7 +50,7 @@ module.exports = {
 
   secret: async (req, res, next) => {
     try {
-      res.send('Authorized')
+      res.json({ secret: 'resource' })
     } catch (error) {
       next(error)
     }

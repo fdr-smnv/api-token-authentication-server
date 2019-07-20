@@ -8,7 +8,6 @@ const { JWT_SECRET } = require('./helpers/envVariables')
 
 
 // JWT STRATEGY
-
 passport.use(new JwtStrategy({
   jwtFromRequest: ExtractJwt.fromHeader('authorization'),
   secretOrKey: JWT_SECRET
@@ -31,7 +30,6 @@ passport.use(new JwtStrategy({
 }))
 
 // LOCAL STRATEGY
-
 passport.use(new LocalStrategy({
   usernameField: 'email'
 }, async (email, password, done) => {
